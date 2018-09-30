@@ -44,8 +44,8 @@ def multiplicative_inverse(e, phi):
     """
     x=0
     y=0
-#    yi+1 = xi
-#    xi+1 = yi + xi*(a//b)
+#    y(i+1) = xi
+#    x(i+1) = yi + xi*(a//b)
     while e != phi:
         if e > phi:
             pass # ДОДЕЛАТЬ Расш Алгоритм Евклида
