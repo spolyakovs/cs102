@@ -27,7 +27,7 @@ def gcd(a: int, b:int):
     >>> gcd(3, 7)
     1
     """
-    while not a == b:
+    while a != b:
         if a > b:
             a -= b
         else: b -= a
@@ -42,8 +42,14 @@ def multiplicative_inverse(e, phi):
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    x=0
+    y=0
+#    yi+1 = xi
+#    xi+1 = yi + xi*(a//b)
+    while e != phi:
+        if e > phi:
+            pass # ДОДЕЛАТЬ Расш Алгоритм Евклида
+    return y-1
 
 
 def generate_keypair(p, q):
@@ -52,10 +58,10 @@ def generate_keypair(p, q):
     elif p == q:
         raise ValueError('p and q cannot be equal')
 
-    # n = pq
+    n = pq
     # PUT YOUR CODE HERE
 
-    # phi = (p-1)(q-1)
+    phi = (p-1)(q-1)
     # PUT YOUR CODE HERE
 
     # Choose an integer e such that e and phi(n) are coprime
