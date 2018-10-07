@@ -46,14 +46,13 @@ def multiplicative_inverse(e, phi):
     eDivphi = []
     if phi > e:
         e, phi = phi, e
-    while e != phi and phi != 0:
+    while e != phi and phi != 1:
         eDivphi.append(e // phi)
         box = e
         e = phi
         phi = box % phi
     x = 0
     y = 1
-    eDivphi.pop()
     eDivphi.reverse()
     for i in eDivphi:
         box = x
