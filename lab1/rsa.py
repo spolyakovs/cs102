@@ -42,14 +42,24 @@ def multiplicative_inverse(e, phi):
     >>> multiplicative_inverse(7, 40)
     23
     """
-    x=0
-    y=0
-#    y(i+1) = xi
-#    x(i+1) = yi + xi*(a//b)
-    while e != phi:
-        if e > phi:
-            pass # ДОДЕЛАТЬ Расш Алгоритм Евклида
-    return y-1
+    phiSaved = phi
+    eDivphi = []
+    if phi > e:
+        e, phi = phi, e
+    while e != phi and phi != 0:
+        eDivphi.append(e // phi)
+        box = e
+        e = phi
+        phi = box % phi
+    x = 0
+    y = 1
+    eDivphi.pop()
+    eDivphi.reverse()
+    for i in eDivphi:
+        box = x
+        x = y
+        y = box - (y * i)
+    return y % phiSaved
 
 
 def generate_keypair(p, q):
