@@ -58,19 +58,19 @@ def multiplicative_inverse(e: int, phi:int) -> int:
         box = x
         x = y
         y = box - (y * i)
-    return y % phiSaved
+    return (y % phiSaved)
 
 
-def generate_keypair(p: int, q: int) -> ((int, int), (int, int)):
+def generate_keypair(p: int, q: int) -> tuple:
     if not (is_prime(p) and is_prime(q)):
         raise ValueError('Both numbers must be prime.')
     elif p == q:
         raise ValueError('p and q cannot be equal')
 
-    n = pq
+    n = p*q
     # PUT YOUR CODE HERE
 
-    phi = (p-1)(q-1)
+    phi = (p-1)*(q-1)
     # PUT YOUR CODE HERE
 
     # Choose an integer e such that e and phi(n) are coprime
@@ -90,7 +90,7 @@ def generate_keypair(p: int, q: int) -> ((int, int), (int, int)):
     return ((e, n), (d, n))
 
 
-def encrypt(pk: int, plaintext: int) -> list:
+def encrypt(pk: tuple, plaintext: str) -> list:
     # Unpack the key into it's components
     key, n = pk
     # Convert each letter in the plaintext to numbers based on
@@ -100,7 +100,7 @@ def encrypt(pk: int, plaintext: int) -> list:
     return cipher
 
 
-def decrypt(pk: int, ciphertext: int) -> str:
+def decrypt(pk: tuple, ciphertext: list) -> str:
     # Unpack the key into its components
     key, n = pk
     # Generate the plaintext based on the ciphertext and key using a^b mod m
