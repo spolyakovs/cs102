@@ -90,7 +90,7 @@ def find_empty_positions(grid: list) -> tuple:
                 return (i, k)
 
 
-def find_possible_values(grid: list, pos: tuple) -> dict:
+def find_possible_values(grid: list, pos: tuple) -> set:
     """ Вернуть множество возможных значения для указанной позиции
 
     >>> grid = read_sudoku('puzzle1.txt')
