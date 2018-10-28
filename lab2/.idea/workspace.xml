@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8265e3d-6696-4dcf-b14a-794b3a455a0d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sudoku.py" beforeDir="false" afterPath="$PROJECT_DIR$/sudoku.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,11 +15,12 @@
     <session id="-794926958">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -33,12 +35,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2935" />
+          <entry key="py" value="3347" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="2935" />
+          <entry key="Python" value="3347" />
         </counts>
       </usages-collector>
     </session>
@@ -48,8 +50,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sudoku.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="104" lean-forward="true" selection-start-line="104" selection-end-line="104" />
+            <state relative-caret-position="323">
+              <caret line="125" column="239" selection-start-line="125" selection-start-column="239" selection-end-line="125" selection-end-column="239" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -177,15 +182,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Doctests_in_sudoku - 2018.10.20 at 23h 30m 04s.xml">
-      <configuration name="Doctests in sudoku" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Doctests_in_sudoku - 2018.10.20 at 23h 36m 57s.xml">
-      <configuration name="Doctests in sudoku" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Doctests_in_sudoku - 2018.10.20 at 23h 45m 15s.xml">
-      <configuration name="Doctests in sudoku" configurationId="tests" />
-    </history-entry>
     <history-entry file="Doctests_in_sudoku - 2018.10.20 at 23h 45m 58s.xml">
       <configuration name="Doctests in sudoku" configurationId="tests" />
     </history-entry>
@@ -205,6 +201,15 @@
       <configuration name="Doctests in sudoku" configurationId="tests" />
     </history-entry>
     <history-entry file="Doctests_in_sudoku - 2018.10.21 at 00h 02m 12s.xml">
+      <configuration name="Doctests in sudoku" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_sudoku - 2018.10.24 at 10h 21m 25s.xml">
+      <configuration name="Doctests in sudoku" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_sudoku - 2018.10.28 at 15h 23m 21s.xml">
+      <configuration name="Doctests in sudoku" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_sudoku - 2018.10.28 at 15h 25m 07s.xml">
       <configuration name="Doctests in sudoku" configurationId="tests" />
     </history-entry>
   </component>
@@ -244,13 +249,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sudoku.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="104" lean-forward="true" selection-start-line="104" selection-end-line="104" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -262,6 +260,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24945">
           <caret line="1663" selection-start-line="1663" selection-end-line="1663" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sudoku.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="125" column="239" selection-start-line="125" selection-start-column="239" selection-end-line="125" selection-end-column="239" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
