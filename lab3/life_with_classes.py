@@ -1,12 +1,14 @@
 import pygame
 from pygame.locals import *
+from typing import List
+from __future__ import *
 import random
 from copy import deepcopy
 
 
 class GameOfLife:
 
-    def __init__(self, width=640, height=480, cell_size=10, speed=10):
+    def __init__(self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10):
         self.width = width
         self.height = height
         self.cell_size = cell_size
@@ -23,15 +25,31 @@ class GameOfLife:
         # Скорость протекания игры
         self.speed = speed
 
+        # delete it later
         self.run()
+
     def draw_grid(self):
         """ Отрисовать сетку """
         for x in range(0, self.width, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'),
-                    (x, 0), (x, self.height))
+            pygame.draw.line(self.screen, pygame.Color('black'), (x, 0), (x, self.height))
         for y in range(0, self.height, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'),
-                    (0, y), (self.width, y))
+            pygame.draw.line(self.screen, pygame.Color('black'), (0, y), (self.width, y))
+
+    def draw_cell_list(self, clist: List[list]) -> None:
+        """ Отображение списка клеток
+        :param clist: Список клеток для отрисовки, представленный в виде матрицы
+        """
+
+        cell_height = len(clist)
+        cell_width = len(clist[0])
+        for i in range(cell_height):
+            for k in range(cell_width):
+                if clist[i][k].is_alive() == 1:
+                    pygame.draw.rect(self.screen, pygame.Color(0, 255, 0),
+                                     pygame.Rect(k*self.cell_size, i*self.cell_size, self.cell_size, self.cell_size))
+                else:
+                    pygame.draw.rect(self.screen, pygame.Color(255, 255, 255),
+                                     pygame.Rect(k*self.cell_size, i*self.cell_size, self.cell_size, self.cell_size))
 
     def run(self):
         """ Запустить игру """
@@ -41,18 +59,20 @@ class GameOfLife:
         self.screen.fill(pygame.Color('white'))
 
         # Создание списка клеток
-        # PUT YOUR CODE HERE
+        self.clist = CellList(self.cell_height, self.cell_width, randomize=True)
 
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
-            self.draw_grid()
 
             # Отрисовка списка клеток
+            self.draw_cell_list(self.clist.clist)
+            self.draw_grid()
+
             # Выполнение одного шага игры (обновление состояния ячеек)
-            # PUT YOUR CODE HERE
+            self.clist.update()
 
             pygame.display.flip()
             clock.tick(self.speed)
@@ -61,42 +81,78 @@ class GameOfLife:
 
 class Cell:
 
-    def __init__(self, row: int, col: int, state: bool = False):
+    def __init__(self, row: int, col: int, state: int = 0):
         self.pos = (row, col)
-        self.alive = state
-        pass
+        self.state = state
 
-    def is_alive(self) -> bool:
-        return self.alive
+    def is_alive(self) -> int:
+        return self.state
 
 
 class CellList:
 
     def __init__(self, nrows: int, ncols: int, randomize: bool = False):
-        self.rows = nrows
-        self.cols = ncols
-        pass
+        self.nrows = nrows
+        self.ncols = ncols
+        self.clist = [[1]*self.ncols for _ in range(self.nrows)]
+        if randomize:
+            for i in range(self.nrows):
+                for k in range(self.ncols):
+                    self.clist[i][k] = Cell(i, k, random.randint(0, 1))
+        else:
+            for i in range(self.nrows):
+                for k in range(self.ncols):
+                    self.clist[i][k] = Cell(i, k, 0)
 
-    def get_neighbours(self, cell):
-        neighbours = []
-        # PUT YOUR CODE HERE
+    def get_neighbours(self, cell: Cell) -> list:
+        row, col = cell.pos
+        neighbours = [self.clist[i][k]
+                      for i in range(row - 1, row + 2)
+                      for k in range(col - 1, col + 2)
+                      if 0 <= i < self.nrows and 0 <= k < self.ncols]
+        neighbours.remove(self.clist[row][col])
         return neighbours
 
     def update(self):
         new_clist = deepcopy(self)
-        # PUT YOUR CODE HERE
+        for i in range(self.nrows):
+            for k in range(self.ncols):
+                if sum(j.is_alive() for j in self.get_neighbours(self.clist[i][k])) == 3 \
+                        or sum(j.is_alive() for j in self.get_neighbours(self.clist[i][k])) == 2\
+                        and self.clist[i][k].is_alive() == 1:
+                    new_clist.clist[i][k] = Cell(i, k, 1)
+                else:
+                    new_clist.clist[i][k] = Cell(i, k, 0)
+        self.clist = new_clist.clist
         return self
 
     def __iter__(self):
-        pass
+        self.row_counter, self.col_counter = 0, 0
+        return self
 
-    def __next__(self):
-        pass
+    def __next__(self) -> Cell:
+        if self.row_counter == self.nrows:
+            raise StopIteration
+
+        if self.col_counter + 1 < self.ncols:
+            self.col_counter += 1
+            return self.clist[self.row_counter][self.col_counter - 1]
+        else:
+            self.col_counter = 0
+            self.row_counter += 1
+            return self.clist[self.row_counter - 1][self.ncols - 1]
 
     def __str__(self):
-        pass
+        return "CellList"
 
     @classmethod
     def from_file(cls, filename: str):
-        pass
-
+        int_clist = [[int(char) for char in line if char != '\n'] for line in open(filename, "r")]
+        print()
+        rows = len(int_clist)
+        cols = len(int_clist[0])
+        new_clist = CellList(rows, cols)
+        for i in range(rows):
+            for k in range(cols):
+                new_clist.clist[i][k] = Cell(i, k, int_clist[i][k])
+        return new_clist

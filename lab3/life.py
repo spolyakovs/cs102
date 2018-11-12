@@ -84,10 +84,10 @@ class GameOfLife:
             for k in range(cell_width):
                 if clist[i][k] == 1:
                     pygame.draw.rect(self.screen, pygame.Color(0, 255, 0),
-                                     pygame.Rect(k*self.cell_size, i*self.cell_size, self.cell_size, self.cell_size))
+                                     pygame.Rect(k * self.cell_size, i * self.cell_size, self.cell_size, self.cell_size))
                 else:
                     pygame.draw.rect(self.screen, pygame.Color(255, 255, 255),
-                                     pygame.Rect(k*self.cell_size, i*self.cell_size, self.cell_size, self.cell_size))
+                                     pygame.Rect(k * self.cell_size, i * self.cell_size, self.cell_size, self.cell_size))
 
     def get_neighbours(self, cell: tuple) -> list:
         """ Вернуть список соседей для указанной ячейки
@@ -96,7 +96,8 @@ class GameOfLife:
         :return: Одномерный список ячеек, смежных к ячейке cell
         """
         row, col = cell
-        neighbours = [self.clist[i][k] for i in range(row - 1, row + 2)
+        neighbours = [self.clist[i][k]
+                      for i in range(row - 1, row + 2)
                       for k in range(col - 1, col + 2)
                       if 0 <= i < self.cell_height and 0 <= k < self.cell_width]
         neighbours.remove(self.clist[row][col])
