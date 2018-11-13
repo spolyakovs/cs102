@@ -143,9 +143,10 @@ class CellList:
 
     def __str__(self):
         list = [[str(self.clist[i][k].is_alive()) for k in range(self.ncols)] for i in range(self.nrows)]
-        string = ''
-        for i in range(self.nrows):
-            string += str(list[i]) + '\n'
+        string = '['
+        for i in range(self.nrows - 1):
+            string += str(list[i]) + ',\n'
+        string += str(list[self.nrows - 1]) + ']'
         return string
 
     @classmethod
