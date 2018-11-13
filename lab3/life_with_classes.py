@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 from typing import List
-from __future__ import *
 import random
 from copy import deepcopy
 
@@ -143,7 +142,11 @@ class CellList:
             return self.clist[self.row_counter - 1][self.ncols - 1]
 
     def __str__(self):
-        return "CellList"
+        list = [[str(self.clist[i][k].is_alive()) for k in range(self.ncols)] for i in range(self.nrows)]
+        string = ''
+        for i in range(self.nrows):
+            string += str(list[i]) + '\n'
+        return string
 
     @classmethod
     def from_file(cls, filename: str):
