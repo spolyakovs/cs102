@@ -3,6 +3,7 @@ from pygame.locals import *
 from typing import List
 import random
 from copy import deepcopy
+from pythonlangutil.overload import Overload
 
 
 class GameOfLife:
@@ -23,9 +24,6 @@ class GameOfLife:
 
         # Скорость протекания игры
         self.speed = speed
-
-        # delete it later
-        self.run()
 
     def draw_grid(self):
         """ Отрисовать сетку """
@@ -93,7 +91,7 @@ class CellList:
     def __init__(self, nrows: int, ncols: int, randomize: bool = False):
         self.nrows = nrows
         self.ncols = ncols
-        self.clist = [[1]*self.ncols for _ in range(self.nrows)]
+        self.clist = [[Cell(0, 0, 0)]*self.ncols for _ in range(self.nrows)]
         if randomize:
             for i in range(self.nrows):
                 for k in range(self.ncols):
