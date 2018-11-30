@@ -5,6 +5,7 @@ import plotly.plotly as py
 import plotly.graph_objs as go
 from typing import List, Tuple
 from api import messages_get_history
+from api import get_friends
 from api_models import Message
 import config
 
@@ -18,7 +19,7 @@ def fromtimestamp(ts: int) -> datetime.date:
     return datetime.fromtimestamp(ts).date()
 
 
-def count_dates_from_messages(messages: List[Message]) -> Tuple[Dates, Frequencies]:
+def count_dates_from_messages(messages: List[Message]) -> Tuple[List[datetime.date], List[int]]:
     """ Получить список дат и их частот
     :param messages: список сообщений
     """
@@ -26,8 +27,8 @@ def count_dates_from_messages(messages: List[Message]) -> Tuple[Dates, Frequenci
     cnt = Counter()
 
     for message in messages:
-        message.date = datetime.utcfromtimestamp(message.date).strftime("%Y-%m-%d")
-        date.append(message.date)
+        message['date'] = datetime.utcfromtimestamp(message['date']).strftime("%Y-%m-%d")
+        date.append(message['date'])
 
     for val in date:
         cnt[val] += 1
@@ -43,3 +44,7 @@ def plotly_messages_freq(dates: List[datetime.date], freq: List[int]) -> None:
     """
     data = [go.Scatter(x=dates, y=freq)]
     py.plot(data)
+
+friend_id = get_friends(config.VK_CONFIG['user_id'], '')[14]
+dates, freq = count_dates_from_messages(messages_get_history(friend_id, count=2000))
+plotly_messages_freq(dates, freq)

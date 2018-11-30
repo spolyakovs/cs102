@@ -67,26 +67,24 @@ def messages_get_history(user_id, offset=0, count=20):
         'access_token': config.VK_CONFIG['access_token'],
         'user_id': user_id,
         'offset': offset,
-        'count': count,
+        'messages_count': min(count, 200),
         'v': config.VK_CONFIG['version']
     }
 
     messages = []
-    query = "{domain}/messages.getHistory?access_token={access_token}&user_id={user_id}&v={v}".format(
-        **query_params)
-    response = get(query)
-    if response:
-        messages_json = response.json()
-        count = messages_json['response']['count']
-        while count > 0:
-            query = "{domain}/messages.getHistory?" \
-                    "access_token={access_token}&user_id={user_id}&offset={offset}&count={count}&v={v}"\
-                .format(**query_params)
-            response = get(query)
-            if response:
-                json_doc = response.json()
+    while count > 0:
+        query = "{domain}/messages.getHistory?" \
+            "access_token={access_token}&user_id={user_id}&offset={offset}&count={messages_count}&v={v}"\
+            .format(**query_params)
+        response = get(query)
+        if response:
+            json_doc = response.json()
+            if json_doc.get('error') is not None:
+                print(json_doc['error']['error_msg'])
+            else:
                 messages.extend(json_doc['response']["items"])
-                count -= min(count, 200)
-                query_params['offset'] += 200
-                query_params['count'] = min(count, 200)
-        return messages
+        count -= min(count, 200)
+        query_params['offset'] += 200
+        query_params['messages_count'] = min(count, 200)
+        time.sleep(0.4)
+    return messages

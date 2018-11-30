@@ -35,3 +35,5 @@ def age_predict(user_id: int) -> Optional[float]:
         return median(ages)
     else:
         return None
+
+print(age_predict(config.VK_CONFIG['user_id']))

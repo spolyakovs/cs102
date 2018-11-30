@@ -1,5 +1,5 @@
 from api import get_friends
-import igraph  # DO NOT WORK
+import igraph
 import time
 import config
 
