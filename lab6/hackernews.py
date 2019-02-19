@@ -3,9 +3,10 @@ from bottle import (
 )
 from scraputils import get_news
 from db import News, session
-from bayes import NaiveBayesClassifier
+from bayes import NaiveBayesClassifier as Classifier
 
 
+@route("/")
 @route("/news")
 def news_list():
     s = session()
@@ -15,13 +16,29 @@ def news_list():
 
 @route("/add_label/")
 def add_label():
-    # PUT YOUR CODE HERE
+    s = session()
+    label = request.query.label
+    row_id = request.query.id
+    row = s.query(News).filter(News.id == row_id)
+    row.label = label
+    s.commit()
     redirect("/news")
 
 
 @route("/update")
 def update_news():
-    # PUT YOUR CODE HERE
+    s = session()
+    news = get_news("https://news.ycombinator.com/", 34)
+    for n in news:
+        row = News(title=n["title"],
+                   author=n["author"],
+                   url=n["url"],
+                   comments=n["comments"],
+                   points=n["points"])
+        if s.query(News).filter(News.title == row.title and News.author == row.author).all():
+            continue
+        s.add(row)
+        s.commit()
     redirect("/news")
 
 

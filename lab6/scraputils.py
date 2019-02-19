@@ -14,16 +14,20 @@ def extract_news(parser):
         title = headers[i].text
         url = headers[i]["href"]
         comments = infos[i].find_all("a")[3].text.split("\xa0")[0]
+        try:
+            comments = int(comments)
+        except ValueError:
+            comments = 0
         author = authors[i].text
         points = scores[i].text.split(" ")[0]
-        new = {
+        row = {
             "author": author,
             "comments": comments,
             "points": points,
             "title": title,
             "url": url
         }
-        news_list.append(new)
+        news_list.append(row)
     return news_list
 
 
