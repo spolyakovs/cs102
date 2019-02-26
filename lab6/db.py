@@ -6,7 +6,6 @@ import os
 
 
 os.chdir("/home/serman/Documents/cs102/lab6")
-print(os.getcwd())
 Base = declarative_base()
 engine = create_engine("sqlite:///news.db")
 session = sessionmaker(bind=engine)

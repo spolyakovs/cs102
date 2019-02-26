@@ -44,8 +44,9 @@ def update_news():
 
 @route("/classify")
 def classify_news():
-    # PUT YOUR CODE HERE
-    pass
+    s = session()
+    rows = s.query(News).filter(News.label == None).all()
+    return template('news_template', rows=rows)
 
 
 if __name__ == "__main__":
