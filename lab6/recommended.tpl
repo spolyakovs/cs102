@@ -16,7 +16,29 @@
                 <th colspan="3">Label</th>
             </thead>
             <tbody>
-                %for row in rows:
+                %for row in good_rows:
+                <tr>
+                    <td><a href="{{ row.url }}">{{ row.title }}</a></td>
+                    <td>{{ row.author }}</td>
+                    <td>{{ row.points }}</td>
+                    <td>{{ row.comments }}</td>
+                    <td class="positive"><a href="/add_label/?label=good&id={{ row.id }}">Интересно</a></td>
+                    <td class="active"><a href="/add_label/?label=maybe&id={{ row.id }}">Возможно</a></td>
+                    <td class="negative"><a href="/add_label/?label=never&id={{ row.id }}">Не интересно</a></td>
+                </tr>
+                %end
+                %for row in maybe_rows:
+                <tr>
+                    <td><a href="{{ row.url }}">{{ row.title }}</a></td>
+                    <td>{{ row.author }}</td>
+                    <td>{{ row.points }}</td>
+                    <td>{{ row.comments }}</td>
+                    <td class="positive"><a href="/add_label/?label=good&id={{ row.id }}">Интересно</a></td>
+                    <td class="active"><a href="/add_label/?label=maybe&id={{ row.id }}">Возможно</a></td>
+                    <td class="negative"><a href="/add_label/?label=never&id={{ row.id }}">Не интересно</a></td>
+                </tr>
+                %end
+                %for row in never_rows:
                 <tr>
                     <td><a href="{{ row.url }}">{{ row.title }}</a></td>
                     <td>{{ row.author }}</td>
@@ -31,7 +53,7 @@
             <tfoot class="full-width">
                 <tr>
                     <th colspan="7">
-                        <a href="/classify" class="ui floated small primary button">I Wanna see interesting news!</a>
+                        <a href="/news" class="ui floated small primary button">I Wanna see all news!</a>
                         <a href="/update" class="ui right floated small primary button">I Wanna more Hacker News!</a>
                     </th>
                 </tr>

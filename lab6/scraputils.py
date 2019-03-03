@@ -56,7 +56,8 @@ def get_news(url, n_pages=1):
         n_pages -= 1
         finish_time = time.clock()
         print("Waiting ", tmin - finish_time + start_time, " sec")
-        time.sleep(tmin - finish_time + start_time)
+        if n_pages:
+            time.sleep(tmin - finish_time + start_time)
     return news
 
 

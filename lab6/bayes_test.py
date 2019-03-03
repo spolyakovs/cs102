@@ -11,14 +11,14 @@ def clean(s):
 if __name__ == "__main__":
     with open('data/SMSSpamCollection') as f:
         data = list(csv.reader(f, delimiter="\t"))
-    X, Y = [], []
+    titles, labels = [], []
     for tagged_message in data:
-        Y.append(tagged_message[0])
-        X.append(tagged_message[1])
-    X = [clean(x).lower() for x in X]
-    X_training, Y_training, X_test, Y_test = X[0:3900], Y[0:3900], X[3900:], Y[3900:]
+        labels.append(tagged_message[0])
+        titles.append(tagged_message[1])
+    titles = [clean(title).lower() for title in titles]
+    titles_training, labels_training, titles_test, labels_test = titles[0:3900], labels[0:3900], titles[3900:], labels[3900:]
     
     model = NaiveBayesClassifier()
-    model.fit(X_training, Y_training)
-    model.predict(X_test)
-    print(model.score(X_test, Y_test), "%")
+    model.fit(titles_training, labels_training)
+    model.predict(titles_test)
+    print(model.score(titles_test, labels_test), "%")
