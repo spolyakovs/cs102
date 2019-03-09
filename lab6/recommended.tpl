@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 %for row in good_rows:
-                <tr>
+                <tr style="color: green">
                     <td><a href="{{ row.url }}">{{ row.title }}</a></td>
                     <td>{{ row.author }}</td>
                     <td>{{ row.points }}</td>
@@ -28,7 +28,7 @@
                 </tr>
                 %end
                 %for row in maybe_rows:
-                <tr>
+                <tr style="color: blue">
                     <td><a href="{{ row.url }}">{{ row.title }}</a></td>
                     <td>{{ row.author }}</td>
                     <td>{{ row.points }}</td>
@@ -39,7 +39,7 @@
                 </tr>
                 %end
                 %for row in never_rows:
-                <tr>
+                <tr style="color: red">
                     <td><a href="{{ row.url }}">{{ row.title }}</a></td>
                     <td>{{ row.author }}</td>
                     <td>{{ row.points }}</td>

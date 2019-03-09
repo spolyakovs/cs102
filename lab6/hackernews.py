@@ -28,7 +28,7 @@ def add_label():
 @route("/update")
 def update_news():
     s = session()
-    news = get_news("https://news.ycombinator.com/")
+    news = get_news("https://news.ycombinator.com/", 5)
     for n in news:
         row = News(title=n["title"],
                    author=n["author"],
@@ -48,17 +48,15 @@ def classify_news():
     news = s.query(News).filter(News.label == None).all()
     titles = [row.title for row in news]
     labels = classifier.predict(titles)
-    print(labels)
     good_rows = []
     maybe_rows = []
     never_rows = []
     for i in range(len(labels)):
-        if labels[i] == 'good':
+        if labels[i] == "good":
             good_rows.append(news[i])
-            print(news[i].title)
-        elif labels[i] == 'maybe':
+        elif labels[i] == "maybe":
             maybe_rows.append(news[i])
-        elif labels[i] == 'never':
+        elif labels[i] == "never":
             never_rows.append(news[i])
     return template('recommended', good_rows=good_rows, maybe_rows=maybe_rows, never_rows=never_rows)
 
