@@ -82,12 +82,12 @@ class Pool():
 
     def first_worker_func(self, func):
         attr = self.input_q.get()
-        self.output_q.put(func(attr[0], attr[1]) + " by worker " + str(os.getpid()))
+        self.output_q.put(str(func(attr[0], attr[1])) + " by worker " + str(os.getpid()))
 
     def worker_func(self, func):
         while self.input_q.qsize() > 0:
             attr = self.input_q.get()
-            self.output_q.put(func(attr[0], attr[1]) + " by worker " + str(os.getpid()))
+            self.output_q.put(str(func(attr[0], attr[1])) + " by worker " + str(os.getpid()))
 
 
 if __name__ == "__main__":
