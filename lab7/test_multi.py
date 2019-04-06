@@ -6,10 +6,10 @@ import multiprocess
 pool = multiprocess.Pool()
 
 
-class TestMultiprocess(unittest.TestCase):
+class TestPool(unittest.TestCase):
 
     def test_get_proc_memory(self):
-        #TODO: поймать исключение
+        # can not test this function
         pass
 
     def test_map(self):
@@ -29,7 +29,7 @@ class TestMultiprocess(unittest.TestCase):
         self.assertEqual(pool.check_workers_count(20), 10)
 
     def test_start_first_worker(self):
-        #TODO: поймать исключение
+        # can not test this function
         pass
 
     def test_init_worker(self):

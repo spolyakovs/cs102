@@ -3,10 +3,16 @@ import os
 import psutil
 import threading
 import time
+from random import randint
+import gc
 
 
-def function(number, indicator):
-    new_number = number ** indicator
+def function(max_number):
+    array = [randint(0, max_number) for _ in range(1000000)]
+    array.sort()
+    del array
+    gc.collect()
+    array = [randint(0, max_number) for _ in range(2000000)]
     return "Done"
 
 
@@ -29,11 +35,9 @@ class Pool():
                     process = psutil.Process(worker.pid)
                     memory_usage = process.memory_info().rss / 2 ** 20
                     self.max_process_memory = max(memory_usage, self.max_process_memory)
-                    print("Process " + str(worker.pid) + " uses " + str(memory_usage) + "Mb")
                 except Exception:
                     pass
-            print("")
-            time.sleep(0.5)
+            time.sleep(0.2)
 
     def map(self, func, arguments):
         for arg in arguments:
@@ -51,9 +55,10 @@ class Pool():
 
     def check_workers_count(self, proc_count):
         if proc_count < self.min_workers:
+            self.working_status = False
             raise Exception("Memory is not enough for " + str(self.min_workers) + " workers")
         else:
-            return min(proc_count, self.max_workers)
+            return min(int(proc_count), self.max_workers)
 
     def start_first_worker(self, func):
         first_worker = Process(target=self.first_worker_func, args=(func, ))
@@ -82,21 +87,21 @@ class Pool():
 
     def first_worker_func(self, func):
         attr = self.input_q.get()
-        self.output_q.put(str(func(attr[0], attr[1])) + " by worker " + str(os.getpid()))
+        self.output_q.put(str(func(attr)) + " by worker " + str(os.getpid()))
 
     def worker_func(self, func):
         while self.input_q.qsize() > 0:
             attr = self.input_q.get()
-            self.output_q.put(str(func(attr[0], attr[1])) + " by worker " + str(os.getpid()))
+            self.output_q.put(str(func(attr)) + " by worker " + str(os.getpid()))
 
 
 if __name__ == "__main__":
     start_time = time.time()
     pool = Pool()
-    array = [(1000, 1000000) for _ in range(10)]
+    array = [1000 for _ in range(50)]
     results = pool.map(function, array)
     print("Results:", results)
     print("Spent time:", time.time() - start_time)
     start_time = time.time()
-    new_array = [function(args[0], args[1]) for args in array]
+    new_array = [function(arg) for arg in array]
     print("Spent time:", time.time() - start_time)
